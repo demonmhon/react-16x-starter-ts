@@ -5,7 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: path.resolve(__dirname, '../src', 'index.js'),
+    main: path.resolve(__dirname, '../src', 'index.tsx'),
   },
   output: {
     filename: '[name].[hash].js',
@@ -23,9 +23,9 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js|jsx)$/,
-        exclude: [/node_modules/],
-        use: [{ loader: 'babel-loader' }],
+        test: /\.(t|j)sx?$/,
+        use: { loader: 'ts-loader' },
+        exclude: /node_modules/,
       },
       {
         test: /.*\.(gif|png|jpe?g|svg)$/i,
@@ -51,6 +51,12 @@ module.exports = {
           },
         ],
       },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'source-map-loader',
+      },
     ],
   },
   plugins: [
@@ -75,6 +81,6 @@ module.exports = {
       assets: path.resolve(__dirname, '../src/assets/'),
       components: path.resolve(__dirname, '../src/components/'),
     },
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
 };

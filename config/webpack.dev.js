@@ -20,6 +20,7 @@ module.exports = merge(common, {
     overlay: true,
     open: false,
     stats: 'errors-only',
+    hot: true
   },
   plugins: [new webpack.DefinePlugin(envKeys)],
 });
